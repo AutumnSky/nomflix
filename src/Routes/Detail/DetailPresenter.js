@@ -1,11 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Helmet from 'react-helmet';
 import Loader from 'Components/Loader';
 import DetailTabContainer from '../../Components/DetailTab';
 import Collection from 'Components/Collection';
+import Season from '../../Components/Season';
 
 const Container = styled.div`
   height: calc(100vh - 50px);
@@ -74,18 +75,22 @@ const CollectionTitle = styled.h3`
   margin-bottom: 20px;
 `;
 
-const DetailPresenter = ({ result, loading, error }) => {
+const DetailPresenter = ({ result, loading, error, location }) => {
   let isTabExist = false;
   if (result) {
-    const { videos: { results }, production_companies, production_countries } = result;
+    const { videos: { results }, production_companies, production_countries, created_by } = result;
     if (results && results.length > 0) {
       isTabExist = true;
     } else if (production_companies && production_companies.length > 0) {
       isTabExist = true;
     } else if (production_countries && production_countries.length > 0) {
       isTabExist = true;
+    } else if (created_by && created_by.length > 0) {
+      isTabExist = true;
     }
   }
+  let isSeasonExist = location.pathname.includes('show');
+
   return loading ? (
     <React.Fragment>
       <Helmet>
@@ -154,6 +159,7 @@ const DetailPresenter = ({ result, loading, error }) => {
               <Collection collectionId={result.belongs_to_collection.id} />
             </React.Fragment>
           )}
+          {isSeasonExist && result.seasons && result.seasons.length > 0 && <Season seasonList={result.seasons} />}
         </Data>
       </Content>
     </Container>
@@ -166,4 +172,6 @@ DetailPresenter.propTypes = {
   error: PropTypes.string
 };
 
-export default DetailPresenter;
+export default withRouter(({ result, loading, error, location }) => (
+  <DetailPresenter result={result} loading={loading} error={error} location={location} />
+));

@@ -30,7 +30,7 @@ const FocusLine = styled.div`
   transition: left 0.3s ease-in-out;
 `;
 
-export default ({ isYoutube, isProduction, isCountry, selectedButton, handleClick }) => {
+export default ({ isYoutube, isProduction, isCountry, isCreatedBy, selectedButton, handleClick }) => {
   let tmpArray = [];
   if (isYoutube) {
     tmpArray.push('youtube');
@@ -41,14 +41,16 @@ export default ({ isYoutube, isProduction, isCountry, selectedButton, handleClic
   if (isCountry) {
     tmpArray.push('country');
   }
+  if (isCreatedBy) {
+    tmpArray.push('createdby');
+  }
   let i = 0;
   for (i = 0; i < tmpArray.length; ++i) {
     if (tmpArray[i] === selectedButton) {
       break;
     }
   }
-  console.log('aa', tmpArray, selectedButton);
-  console.log(i);
+
   let focusLineLeft = i * 100;
   focusLineLeft += 10;
 
@@ -58,6 +60,7 @@ export default ({ isYoutube, isProduction, isCountry, selectedButton, handleClic
       {isYoutube && <Button onClick={(e) => handleClick('youtube')}>Youtube</Button>}
       {isProduction && <Button onClick={(e) => handleClick('production')}>Production</Button>}
       {isCountry && <Button onClick={(e) => handleClick('country')}>Country</Button>}
+      {isCreatedBy && <Button onClick={(e) => handleClick('createdby')}>Created By</Button>}
       {/* focus line */}
       <FocusLine left={focusLineLeft} />
     </Container>

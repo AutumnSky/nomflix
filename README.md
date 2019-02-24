@@ -7,4 +7,4 @@
 - [x] Tabs inside of Movie / Show Details (YT Videos, Production Company & Countries)
 - [x] Collections Link
 - [x] /collections Route
-- [ ] On TV Show, show seasons and creators
+- [x] On TV Show, show seasons and creators

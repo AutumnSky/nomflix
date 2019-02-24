@@ -4,6 +4,7 @@ import styled from 'styled-components';
 const IFRAME = styled.iframe`
   width: 100%;
   padding: 20px;
+  padding-top: 10px;
 `;
 
 export default ({ playerKey }) => (
