@@ -16,7 +16,7 @@ const Container = styled.div`
 `;
 
 const Backdrop = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -40,7 +40,7 @@ const Content = styled.div`
 const CoverImg = styled.img`
   height: 100%;
   border-radius: 5px;
-  background-color: orange;
+  z-index: 0;
 `;
 
 const Data = styled.div`
