@@ -16,7 +16,7 @@ const Container = styled.div`
 
 class DetailTablContainer extends React.Component {
   state = {
-    selectedButtonIndex: 0
+    selectedButton: null
   };
 
   constructor(props) {
@@ -26,47 +26,46 @@ class DetailTablContainer extends React.Component {
 
   componentDidMount() {
     const { data: { videos: { results }, production_companies, production_countries } } = this.props;
-    let initButtonIndex = 0;
+    let selectedButton = null;
     if (results && results.length > 0) {
-      initButtonIndex = 0;
+      selectedButton = 'youtube';
     } else if (production_companies && production_companies.length > 0) {
-      initButtonIndex = 1;
+      selectedButton = 'production';
     } else if (production_countries && production_countries.length > 0) {
-      initButtonIndex = 2;
+      selectedButton = 'country';
     }
     this.setState({
-      selectedButtonIndex: initButtonIndex
+      selectedButton
     });
   }
 
-  handleClick(buttonIndex) {
+  handleClick(selectedButton) {
     this.setState({
-      selectedButtonIndex: buttonIndex
+      selectedButton
     });
   }
 
   render() {
-    const { selectedButtonIndex } = this.state;
+    const { selectedButton } = this.state;
     const { data: { videos: { results }, production_companies, production_countries } } = this.props;
+    const isYoutube = results && results.length > 0;
+    const isProduction = production_companies && production_companies.length > 0;
+    const isCountry = production_countries && production_countries.length > 0;
     return (
       <Container>
         <DetailTabHeader
-          isYoutube={results && results.length > 0}
-          isProduction={production_companies && production_companies.length > 0}
-          isCountry={production_countries && production_countries.length > 0}
-          selectedButtonIndex={selectedButtonIndex}
+          isYoutube={isYoutube}
+          isProduction={isProduction}
+          isCountry={isCountry}
+          selectedButton={selectedButton}
           handleClick={this.handleClick}
         />
         {/* Youtube */}
-        {selectedButtonIndex === 0 && results && results.length > 0 && <DetailTabYoutube playerKey={results[0].key} />}
+        {selectedButton === 'youtube' && <DetailTabYoutube playerKey={results[0].key} />}
         {/* Companies */}
-        {selectedButtonIndex === 1 &&
-        production_companies &&
-        production_companies.length > 0 && <DetailTabProduction productionList={production_companies} />}
+        {selectedButton === 'production' && <DetailTabProduction productionList={production_companies} />}
         {/* Countries */}
-        {selectedButtonIndex === 2 &&
-        production_countries &&
-        production_countries.length > 0 && <DetailTabCountry countryList={production_countries} />}
+        {selectedButton === 'country' && <DetailTabCountry countryList={production_countries} />}
       </Container>
     );
   }

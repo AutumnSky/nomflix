@@ -30,25 +30,36 @@ const FocusLine = styled.div`
   transition: left 0.3s ease-in-out;
 `;
 
-export default ({ isYoutube, isProduction, isCountry, selectedButtonIndex, handleClick }) => {
-  let focusLineLeft = 10;
-  if (selectedButtonIndex === 0) {
-    focusLineLeft = 10;
-  } else if (selectedButtonIndex === 1) {
-    focusLineLeft = 110;
-  } else {
-    focusLineLeft = 210;
+export default ({ isYoutube, isProduction, isCountry, selectedButton, handleClick }) => {
+  let tmpArray = [];
+  if (isYoutube) {
+    tmpArray.push('youtube');
   }
-  return (
-  <Container>
-    {/* button */}
-    {isYoutube && <Button onClick={(e) => handleClick(0)}>Youtube</Button>}
-    {isProduction && <Button onClick={(e) => handleClick(1)}>Production</Button>}
-    {isCountry && <Button onClick={(e) => handleClick(2)}>Country</Button>}
-    {/* focus line */}
-    {
-
+  if (isProduction) {
+    tmpArray.push('production');
+  }
+  if (isCountry) {
+    tmpArray.push('country');
+  }
+  let i = 0;
+  for (i = 0; i < tmpArray.length; ++i) {
+    if (tmpArray[i] === selectedButton) {
+      break;
     }
-    <FocusLine left={focusLineLeft} />
-  </Container>);
-}
+  }
+  console.log('aa', tmpArray, selectedButton);
+  console.log(i);
+  let focusLineLeft = i * 100;
+  focusLineLeft += 10;
+
+  return (
+    <Container>
+      {/* button */}
+      {isYoutube && <Button onClick={(e) => handleClick('youtube')}>Youtube</Button>}
+      {isProduction && <Button onClick={(e) => handleClick('production')}>Production</Button>}
+      {isCountry && <Button onClick={(e) => handleClick('country')}>Country</Button>}
+      {/* focus line */}
+      <FocusLine left={focusLineLeft} />
+    </Container>
+  );
+};
