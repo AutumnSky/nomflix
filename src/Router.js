@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
 import Header from './Components/Header';
 import Home from 'Routes/Home';
 import TV from 'Routes/TV';
@@ -15,7 +15,7 @@ const CollectionStyle = styled.div`
 `;
 
 export default () => (
-  <BrowserRouter>
+  <HashRouter>
     <Fragment>
       <Header />
       <Switch>
@@ -39,5 +39,5 @@ export default () => (
         <Redirect from="*" to="/" />
       </Switch>
     </Fragment>
-  </BrowserRouter>
+  </HashRouter>
 );
