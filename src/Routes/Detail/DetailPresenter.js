@@ -34,13 +34,14 @@ const Content = styled.div`
   width: 100%;
   position: relative;
   z-index: 1;
-  height: 100%;
 `;
 
 const CoverImg = styled.img`
-  height: 100%;
   border-radius: 5px;
   z-index: 0;
+  position: sticky;
+  top: 80px;
+  height: calc(100vh - 100px);
 `;
 
 const Data = styled.div`
