@@ -28,7 +28,6 @@ class DetailTablContainer extends React.Component {
   componentDidMount() {
     const { data: { videos: { results }, production_companies, production_countries, created_by } } = this.props;
     let selectedButton = null;
-
     if (results && results.length > 0) {
       selectedButton = 'youtube';
     } else if (production_companies && production_companies.length > 0) {
@@ -57,7 +56,6 @@ class DetailTablContainer extends React.Component {
     const isProduction = production_companies && production_companies.length > 0;
     const isCountry = production_countries && production_countries.length > 0;
     const isCreatedBy = created_by && created_by.length > 0;
-
     return (
       <Container>
         <DetailTabHeader
@@ -69,7 +67,7 @@ class DetailTablContainer extends React.Component {
           handleClick={this.handleClick}
         />
         {/* Youtube */}
-        {selectedButton === 'youtube' && <DetailTabYoutube playerKey={results[0].key} />}
+        {selectedButton === 'youtube' && results.length > 0 && <DetailTabYoutube playerKey={results[0].key} />}
         {/* Companies */}
         {selectedButton === 'production' && <DetailTabProduction productionList={production_companies} />}
         {/* Countries */}

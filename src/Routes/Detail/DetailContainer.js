@@ -47,6 +47,9 @@ export default class extends React.Component {
     } finally {
       this.setState({ loading: false, result });
     }
+
+    // scroll to top
+    window.scrollTo(0, 0);
   };
 
   render() {

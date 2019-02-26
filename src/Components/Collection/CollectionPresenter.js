@@ -62,6 +62,9 @@ const ItemTitle = styled.span`
 const ItemPoster = styled.img`
   width: 50%;
   position: relative;
+  background-color: ${({ isBlank }) => (isBlank ? 'rgba(255, 255, 255, 0.3)' : 'transparent')};
+  border-radius: 5px;
+  margin-top: 10px;
 `;
 
 const ItemOverview = styled.p`
@@ -89,7 +92,9 @@ const CollectionPresenter = ({ loading, error, collectionList, history, match })
           {collectionList &&
             collectionList.map((part) => (
               <GridItem key={part.id} onClick={(event) => handleClick(part.id)}>
-                <ItemBackdrop bgImage={`https://image.tmdb.org/t/p/original${part.backdrop_path}`} />
+                <ItemBackdrop
+                  bgImage={part.backdrop_path ? `https://image.tmdb.org/t/p/original${part.backdrop_path}` : ''}
+                />
                 <ItemTitle>{part.original_title}</ItemTitle>
                 <ItemPoster
                   src={
@@ -99,6 +104,7 @@ const CollectionPresenter = ({ loading, error, collectionList, history, match })
                       require('assets/noPosterSmall.png')
                     )
                   }
+                  isBlank={part.poster_path ? false : true}
                 />
                 <ItemOverview>{part.overview}</ItemOverview>
               </GridItem>

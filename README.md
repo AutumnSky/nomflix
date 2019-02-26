@@ -8,4 +8,4 @@
 - [x] Collections Link
 - [x] /collections Route
 - [x] On TV Show, show seasons and creators
-- [ ] Responsive
+- [x] Responsive

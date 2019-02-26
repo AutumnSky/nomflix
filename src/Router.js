@@ -28,7 +28,6 @@ export default () => (
         <Route
           path="/collection/:id"
           render={(props) => {
-            console.log(props.match.params.id);
             return (
               <CollectionStyle>
                 <Collection collectionId={parseInt(props.match.params.id)} />
