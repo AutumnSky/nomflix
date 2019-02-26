@@ -35,12 +35,12 @@ const Content = styled.div`
   position: relative;
   z-index: 1;
 
-  @media screen and (max-width: 1024px) {
+  @media only screen and (max-width: 1024px) {
     flex-direction: column;
     align-items: center;
   }
 
-  @media screen and (min-width: 1024px) {
+  @media only screen and (min-width: 1024px) {
     flex-direction: row;
   }
 `;
@@ -50,14 +50,14 @@ const CoverImg = styled.img`
   border-radius: 5px;
   z-index: 0;
 
-  @media screen and (max-width: 1024px) {
+  @media only screen and (max-width: 1024px) {
     display: inline-block;
     margin-bottom: 30px;
     width: 100%;
     max-width: 450px;
   }
 
-  @media screen and (min-width: 1024px) {
+  @media only screen and (min-width: 1024px) {
     display: inline-block;
     position: sticky;
     top: 80px;
@@ -68,6 +68,10 @@ const CoverImg = styled.img`
 const Data = styled.div`
   max-width: 450px;
   margin-left: 30px;
+
+  @media only screen and (max-width: 1024px) {
+    margin-left: 0;
+  }
 `;
 
 const Title = styled.h3`font-size: 32px;`;
