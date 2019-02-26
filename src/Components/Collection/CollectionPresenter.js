@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import propTypes from 'prop-types';
 import styled from 'styled-components';
 import Loader from 'Components/Loader';
@@ -24,6 +25,10 @@ const GridItem = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const ItemBackdrop = styled.div`
@@ -66,8 +71,15 @@ const ItemOverview = styled.p`
   line-height: 1.5;
 `;
 
-const CollectionPresenter = ({ loading, error, collectionList }) =>
-  loading ? (
+const CollectionPresenter = ({ loading, error, collectionList, history, match }) => {
+  // movie 항목 교체
+  const handleClick = (movieId) => {
+    if (match.params.id !== movieId.toString()) {
+      history.push(`/movie/${movieId}`);
+    }
+  };
+
+  return loading ? (
     <Loader />
   ) : (
     <React.Fragment>
@@ -76,27 +88,26 @@ const CollectionPresenter = ({ loading, error, collectionList }) =>
         <Grid>
           {collectionList &&
             collectionList.map((part) => (
-              <a href={`/movie/${part.id}`} key={part.id}>
-                <GridItem>
-                  <ItemBackdrop bgImage={`https://image.tmdb.org/t/p/original${part.backdrop_path}`} />
-                  <ItemTitle>{part.original_title}</ItemTitle>
-                  <ItemPoster
-                    src={
-                      part.poster_path ? (
-                        `https://image.tmdb.org/t/p/original${part.poster_path}`
-                      ) : (
-                        require('assets/noPosterSmall.png')
-                      )
-                    }
-                  />
-                  <ItemOverview>{part.overview}</ItemOverview>
-                </GridItem>
-              </a>
+              <GridItem key={part.id} onClick={(event) => handleClick(part.id)}>
+                <ItemBackdrop bgImage={`https://image.tmdb.org/t/p/original${part.backdrop_path}`} />
+                <ItemTitle>{part.original_title}</ItemTitle>
+                <ItemPoster
+                  src={
+                    part.poster_path ? (
+                      `https://image.tmdb.org/t/p/original${part.poster_path}`
+                    ) : (
+                      require('assets/noPosterSmall.png')
+                    )
+                  }
+                />
+                <ItemOverview>{part.overview}</ItemOverview>
+              </GridItem>
             ))}
         </Grid>
       </Container>
     </React.Fragment>
   );
+};
 
 CollectionPresenter.propTypes = {
   loading: propTypes.bool.isRequired,
@@ -104,4 +115,4 @@ CollectionPresenter.propTypes = {
   collectionList: propTypes.array
 };
 
-export default CollectionPresenter;
+export default withRouter((props) => <CollectionPresenter {...props} />);

@@ -34,14 +34,35 @@ const Content = styled.div`
   width: 100%;
   position: relative;
   z-index: 1;
+
+  @media screen and (max-width: 1024px) {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  @media screen and (min-width: 1024px) {
+    flex-direction: row;
+  }
 `;
 
 const CoverImg = styled.img`
+  display: none;
   border-radius: 5px;
   z-index: 0;
-  position: sticky;
-  top: 80px;
-  height: calc(100vh - 100px);
+
+  @media screen and (max-width: 1024px) {
+    display: inline-block;
+    margin-bottom: 30px;
+    width: 100%;
+    max-width: 450px;
+  }
+
+  @media screen and (min-width: 1024px) {
+    display: inline-block;
+    position: sticky;
+    top: 80px;
+    height: calc(100vh - 100px);
+  }
 `;
 
 const Data = styled.div`
