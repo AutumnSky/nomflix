@@ -47,7 +47,7 @@ export default class extends React.Component {
       return true;
     }
 
-    // movie/121 -> movie/122 로 params.id가 변경되면 reder를 다시 함
+    // movie/121 -> movie/122 로 params.id가 변경되면 바뀐 movie 정보를 불러오도록 true
     return this.props.match.params.id !== nextProps.match.params.id;
   }
 
@@ -67,7 +67,7 @@ export default class extends React.Component {
     console.log(4, 'DetailContainer - componentDidUpdate');
     // ISSUE: 클릭시 갱신되지 않고 다음 클릭에 갱신된다.
     // 이 위치인가?
-    // this.refreshView();
+    this.refreshView();
   }
 
   async refreshView() {
